@@ -1,4 +1,4 @@
-image: mcr.microsoft.com/dotnet/sdk:8.0
+image: mcr.microsoft.com/dotnet/core/sdk:2.1
 
 stages:
     - build
@@ -13,9 +13,15 @@ build:
         - "cd app"
         - "dotnet restore"
         - "dotnet build --configuration $BuildConfiguration"
+    artifacts:
+        paths:
+            - app/bin/
+            - app/obj/
 
 test:
     stage: test
-    script: 
+    script:
         - "cd tests"
-        - "dotnet test --configuration $BuildConfiguration"
+        - "dotnet restore"
+        - "dotnet test  --configuration $BuildConfiguration"
+
