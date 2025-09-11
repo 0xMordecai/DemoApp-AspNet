@@ -1,0 +1,21 @@
+image: mcr.microsoft.com/dotnet/sdk:8.0
+
+stages:
+    - build
+    - test
+
+variables:
+    BuildConfiguration: "Release"
+
+build:
+    stage: build
+    script:
+        - "cd app"
+        - "dotnet restore"
+        - "dotnet build --configuration $BuildConfiguration"
+
+test:
+    stage: test
+    script: 
+        - "cd tests"
+        - "dotnet test --configuration $BuildConfiguration"
